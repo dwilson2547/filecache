@@ -25,12 +25,11 @@ Default port: **8030**
 
 ## Getting Started (local)
 
-**Prerequisites:** Python 3.11+, the `request_authorization` client package (sibling repo).
+**Prerequisites:** Python 3.11+.
 
 ```bash
 # Install dependencies
 pip install -r requirements.txt
-pip install -e ../request_authorization/client
 
 # Copy and edit the default config
 cp config.yaml my-config.yaml
@@ -48,11 +47,10 @@ curl http://localhost:8030/health
 
 ## Docker
 
-The image must be built from the `web_scrapers/` root (it copies the `request_authorization/client` sibling):
+Build from the `filecache/` repo root:
 
 ```bash
-cd ../  # web_scrapers/
-docker build -f filecache/Dockerfile -t filecache .
+docker build -f Dockerfile -t filecache .
 docker run -p 8030:8030 -v /data/filecache:/data/filecache filecache
 ```
 
@@ -62,8 +60,8 @@ docker run -p 8030:8030 -v /data/filecache:/data/filecache filecache
 services:
   filecache:
     build:
-      context: .          # web_scrapers/ root
-      dockerfile: filecache/Dockerfile
+      context: .
+      dockerfile: Dockerfile
     ports:
       - "8030:8030"
     volumes:
